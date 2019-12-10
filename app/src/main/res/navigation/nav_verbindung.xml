@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/routingfragment">
+    <fragment
+        android:id="@+id/routingfragment2"
+        android:name="wada1028.info3.oepnv_navigator.routingfragment"
+        android:label="routingfragment"
+        tools:layout="@layout/routingfragment" />
+</navigation>
