@@ -5,15 +5,15 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_verbindungen"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_verbindungen"
             android:title="@string/menu_verbindung" />
         <item
-            android:id="@+id/nav_abfahrten"
+            android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_abfahrten"
             android:title="@string/menu_abfahrten" />
         <item
-            android:id="@+id/nav_liniennetz"
+            android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_liniennetz"
             android:title="@string/menu_liniennetzplan" />
         <item
