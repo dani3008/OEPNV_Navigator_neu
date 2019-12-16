@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.util.List;
 
 import wada1028.info3.oepnv_navigator.R;
 
@@ -30,8 +31,8 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private RequestQueue queue;
-    private static final String[] STOPS = new String[]{"Europaplatz","Markplatz","Herrenstraße"};
-
+    //private static final String[] STOPS = new String[]{"Europaplatz","Markplatz","Herrenstraße"};
+    private JSONArray jsonArray = jsonParse();
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -47,20 +48,22 @@ public class HomeFragment extends Fragment {
 
         //Stopfinder Autocomplete
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,STOPS);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, (List<String>) jsonArray);
         autoCompleteTextViewStart.setAdapter(arrayAdapter);
         autoCompleteTextViewZiel.setAdapter(arrayAdapter);
         return root;
     }
-    public void jsonParse(){
+    public JSONArray jsonParse(){
+        final JSONArray[] jsonArray = new JSONArray[1];
         String url = "http://smartmmi.demo.mentz.net/smartmmi/XML_STOPFINDER_REQUEST?outputFormat=rapidJson&type_sf=any&name_sf=hbf";
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+
             @Override
-            public JSONArray onResponse(JSONObject response) {
-                JSONArray jsonArray;
-                jsonArray = null;
+            public void onResponse(JSONObject response) {
+
                 try {
-                    return response.getJSONArray("locations");
+                    jsonArray[0] = response.getJSONArray("locations");
 //                    for (int i=0; i < jsonArray.length();i++){
 //                        JSONObject location = jsonArray.getJSONObject(i);
 //                        String id = location.getString("id");
@@ -69,7 +72,6 @@ public class HomeFragment extends Fragment {
 //                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    return null;
                 }
 
             }
@@ -79,5 +81,6 @@ public class HomeFragment extends Fragment {
                 error.printStackTrace();
             }
         });
+        return jsonArray[0];
     }
 }
