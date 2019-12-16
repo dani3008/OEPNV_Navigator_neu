@@ -46,15 +46,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//        //Stopfinder Autocomplete
-//
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,STOPS);
-//        AutoCompleteTextView autoCompleteTextViewStart = findViewById(R.id.autoCompleteTextView_Starthaltestelle);
-//        autoCompleteTextViewStart.setAdapter(arrayAdapter);
-//        AutoCompleteTextView autoCompleteTextViewZiel = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView_zielhaltestelle);
-//        autoCompleteTextViewZiel.setAdapter(arrayAdapter);
-
-
     }
 
     @Override
