@@ -1,5 +1,6 @@
 package wada1028.info3.oepnv_navigator.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,16 +30,22 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import wada1028.info3.oepnv_navigator.R;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel homeViewModel;
     private List<String> halteList = new ArrayList<>();
     private RequestQueue queue;
     private AutoCompleteTextView autoCompleteTextViewStart;
     private AutoCompleteTextView autoCompleteTextViewZiel;
+    private Button suchenButton;
+    private String startHalt;
+    private String zielHalt;
+
+
 
 
     //private static final String[] STOPS = new String[]{"Europaplatz","Markplatz","Herrenstraße"};
@@ -45,9 +53,13 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
+        suchenButton = (Button)root.findViewById(R.id.button_suche);
+        suchenButton.setOnClickListener(this);
         autoCompleteTextViewStart = root.findViewById(R.id.autoCompleteTextView_Starthaltestelle);
         autoCompleteTextViewZiel = root.findViewById(R.id.autoCompleteTextView_zielhaltestelle);
+        startHalt = autoCompleteTextViewStart.getText().toString();
+        zielHalt = autoCompleteTextViewZiel.getText().toString();
+        final String KEY = "KEY";
 
         autoCompleteTextViewStart.addTextChangedListener(new TextWatcher() {
             @Override
@@ -86,6 +98,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+
         return root;
     }
 
@@ -122,5 +136,13 @@ public class HomeFragment extends Fragment {
         queue.add(objectRequest);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, halteList);
         aCTextView.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intentHalte = new Intent(Objects.requireNonNull(getActivity()).getApplicationContext(),Routing_Activity.class);
+        intentHalte.putExtra("KEY",startHalt);
+        intentHalte.putExtra("KEY",zielHalt);
+        startActivity(intentHalte);
     }
 }
