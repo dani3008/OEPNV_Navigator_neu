@@ -44,7 +44,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Button suchenButton;
     private String startHalt;
     private String zielHalt;
-
+    public static final String KEY_Start = "KEY_Start";
+    public static final String KEY_Ziel = "KEY_Ziel";
 
 
 
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         autoCompleteTextViewZiel = root.findViewById(R.id.autoCompleteTextView_zielhaltestelle);
         startHalt = autoCompleteTextViewStart.getText().toString();
         zielHalt = autoCompleteTextViewZiel.getText().toString();
-        final String KEY = "KEY";
+
 
         autoCompleteTextViewStart.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,8 +142,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Intent intentHalte = new Intent(Objects.requireNonNull(getActivity()).getApplicationContext(),Routing_Activity.class);
-        intentHalte.putExtra("KEY",startHalt);
-        intentHalte.putExtra("KEY",zielHalt);
+        intentHalte.putExtra("KEY_Start",startHalt);
+        intentHalte.putExtra("KEY_Ziel",zielHalt);
         startActivity(intentHalte);
     }
 }
