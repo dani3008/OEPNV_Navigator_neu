@@ -26,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import wada1028.info3.oepnv_navigator.R;
@@ -36,7 +38,7 @@ public class Routing_Activity extends AppCompatActivity {
     RequestQueue queue_Routing;
     String startHalte = getIntent().getExtras().getString(HomeFragment.KEY_Start);
     String zielHalte = getIntent().getExtras().getString(HomeFragment.KEY_Ziel);
-    List<String> routeList  = new ArrayList<String>();
+    HashMap<Date,String> dateHashMap= new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class Routing_Activity extends AppCompatActivity {
 
 
 
-        // Jason Parsring
+        // Jason Parsing
 
 
         mapview.getMapAsync(new
@@ -81,10 +83,10 @@ public class Routing_Activity extends AppCompatActivity {
                         JSONObject parent = jsonArray.getJSONObject(i);
                         String departureTimePlannedString= parent.getString("departureTimePlanned");
                         String arrivalTimePlannedString = parent.getString("arrivalTimePlanned");
-                        routeList.add(departureTimePlannedString);
-                        routeList.add(arrivalTimePlannedString);
+                        JSONObject transportation = jsonArray.getJSONObject(i);
+                        String name = transportation.getString("name");
 
-
+                        dateHashMap.put(departureTimePlannedString,name);
                         //Log.i("METHODE", "" + name);
                     }
                 } catch (JSONException e) {
